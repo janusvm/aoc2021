@@ -1,22 +1,16 @@
-(ns aoc2021.day01
-  (:require [clojure.java.io :as io]
-            [clojure.string :as str]))
+(ns day01
+  (:require [utils :refer :all]))
 
 ;; Load input as a list of ints
 (def input01
-  (->> "input01.txt"
-       io/resource
-       io/file
-       slurp
-       str/split-lines
-       (map #(Integer/parseInt %))))
+  (read-input "input01.txt" #(Integer/parseInt %)))
 
-;; Part One --------------------------------------------------------------------
-;; Number of measurements larger than the previous
 
-(defn diff "Calculate the lagged differences of a list of numbers" [coll]
-  (->> coll
-       (partition 2 1)
+;; Part 1: Number of measurements greater than previous ;;;;;;;;;;;;;;;;;;;;;;
+(defn diff
+  "Calculate the lagged differences of a list of numbers"
+  [coll]
+  (->> (partition 2 1 coll)
        (map (comp #(reduce - %) reverse))))
 
 (def solution1
@@ -25,9 +19,10 @@
        (filter pos?)
        count))
 
-(println solution1)
+(print-solution 1 solution1)
 
-;; Part Two --------------------------------------------------------------------
+
+;; Part 2: Moving sums ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Number of moving sums of 3 measurements larger than the previous
 (def solution2
   (->> input01
@@ -37,4 +32,4 @@
        (filter pos?)
        count))
 
-(println solution2)
+(print-solution 2 solution2)

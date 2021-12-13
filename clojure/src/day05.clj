@@ -1,20 +1,14 @@
-(ns aoc2021.day05
-  (:require [clojure.java.io :as io]
-            [clojure.string :as str]))
+(ns day05
+  (:require [clojure.string :refer [split]]
+            [utils :refer :all]))
 
 (defn parse-line [s]
-  (->> (str/split s #" -> |,")
+  (->> (split s #" -> |,")
        (map #(Integer/parseInt %))
        (partition 2)))
 
 ;; Load input as pairs of points
-(def input05
-  (->> "input05.txt"
-       io/resource
-       io/file
-       slurp
-       str/split-lines
-       (map parse-line)))
+(def input05 (read-input "input05.txt" parse-line))
 
 
 ;; Part 1: number of overlapping points ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,7 +26,10 @@
                  (cycle (range x1 (+ y1 step1) step1))
                  (cycle (range x2 (+ y2 step2) step2))))))
 
-(defn n-overlapping-points [input]
+(defn n-overlapping-points
+  "Given a sequence of inputs (pairs of points representing line segments) count
+  the number of points at which two or more lines intersect"
+  [input]
   (->> (map range-points input)
        (apply concat)
        frequencies
@@ -49,10 +46,10 @@
                    :else false)))
        n-overlapping-points))
 
-(println "Solution for Part 1:" solution1)
+(print-solution 1 solution1)
 
 
 ;; Part 2: Same as above, but with all lines ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (def solution2 (n-overlapping-points input05))
 
-(println "Solution for Part 2:" solution2)
+(print-solution 2 solution2)

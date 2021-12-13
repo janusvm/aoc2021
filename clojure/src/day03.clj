@@ -1,21 +1,15 @@
-(ns aoc2021.day03
-  (:require [clojure.java.io :as io]
-            [clojure.string :as str]))
+(ns day03
+  (:require [utils :refer :all]))
 
-;; Load input as vectors of bits
-(def input03
-  (->> "input03.txt"
-       io/resource
-       io/file
-       slurp
-       str/split-lines
-       (map (comp vec
-                  (fn [bs] (map (fn [b] (Character/digit b 2)) bs))
-                  seq))))
+(defn parse-line [s]
+  (map #(Character/digit % 2) (seq s)))
+
+;; Load input as lists of bits
+(def input03 (read-input "input03.txt" parse-line))
 
 
 ;; Part 1: Power consumption of the submarine ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Calculate most commom bit in each position as the rounded average
+;; Calculate most common bit in each position as the rounded average
 (defn rounded-avg [x]
   (Math/round (double (/ (apply + x) (count x)))))
 
@@ -24,19 +18,17 @@
 
 ;; Calculate epsilon by transposing the input and taking the rowwise average
 (def epsilon
-  (->> input03
-       (apply mapv vector)
+  (->> (apply mapv vector input03)
        (map rounded-avg)))
 
 ;; Calculate gamma as simply the flipped bits of epsilon
-(def gamma
-  (map #(- 1 %) epsilon))
+(def gamma (map #(- 1 %) epsilon))
 
 (def solution1
   (* (bits-to-number epsilon)
      (bits-to-number gamma)))
 
-(println "Solution to Part 1:" solution1)
+(print-solution 1 solution1)
 
 
 ;; Part 2: Life support rating ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -59,4 +51,4 @@
 (def solution2 (* (get-rating least-common-bit-at input03)
                   (get-rating most-common-bit-at input03)))
 
-(println "Solution for Part 2:" solution2)
+(print-solution 2 solution2)
