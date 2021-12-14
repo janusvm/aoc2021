@@ -8,7 +8,7 @@
        (partition 2)))
 
 ;; Load input as pairs of points
-(def input05 (read-input "input05.txt" parse-line))
+(def input05 (read-multiline-input "input05.txt" parse-line))
 
 
 ;; Part 1: number of overlapping points ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

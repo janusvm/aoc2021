@@ -5,7 +5,7 @@
   (map #(Character/digit % 2) (seq s)))
 
 ;; Load input as lists of bits
-(def input03 (read-input "input03.txt" parse-line))
+(def input03 (read-multiline-input "input03.txt" parse-line))
 
 
 ;; Part 1: Power consumption of the submarine ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

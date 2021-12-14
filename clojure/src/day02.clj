@@ -10,7 +10,7 @@
 
 ;; Load input as list of pairs (direction distance)
 (def input02
-  (read-input "input02.txt" parse-line))
+  (read-multiline-input "input02.txt" parse-line))
 
 
 ;; Part 1: Calculate total product ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

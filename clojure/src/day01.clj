@@ -3,7 +3,7 @@
 
 ;; Load input as a list of ints
 (def input01
-  (read-input "input01.txt" #(Integer/parseInt %)))
+  (read-multiline-input "input01.txt" #(Integer/parseInt %)))
 
 
 ;; Part 1: Number of measurements greater than previous ;;;;;;;;;;;;;;;;;;;;;;
